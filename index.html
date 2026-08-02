@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>莎倫娜號 · 沖繩航程控制中心</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Noto+Serif+TC:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --font-display: 'Fraunces', 'Noto Serif TC', serif;
+  --font-body: 'Inter', 'Noto Sans TC', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(.22,1,.36,1);
+  --coral: #FF7A59;
+  --coral-soft: #FFB199;
+  --aqua: #3FD9C7;
+  --aqua-deep: #1FA093;
+  --sand: #F6E4C7;
+  --gold: #E8B15C;
+  --danger: #FF5D5D;
+}
+[data-theme="dark"]{
+  --bg-0: #071826;
+  --bg-1: #0A2540;
+  --bg-2: #123952;
+  --glass: rgba(255,255,255,0.06);
+  --glass-strong: rgba(255,255,255,0.10);
+  --glass-border: rgba(255,255,255,0.14);
+  --text-0: #F5F4F0;
+  --text-1: #C6D3DC;
+  --text-2: #8FA3B0;
+  --shadow: 0 20px 60px -20px rgba(0,0,0,0.55);
+}
+[data-theme="light"]{
+  --bg-0: #FBF7F0;
+  --bg-1: #F3ECDE;
+  --bg-2: #EDE3D0;
+  --glass: rgba(255,255,255,0.55);
+  --glass-strong: rgba(255,255,255,0.78);
+  --glass-border: rgba(20,30,40,0.08);
+  --text-0: #16232E;
+  --text-1: #3C4E5A;
+  --text-2: #6C7C86;
+  --shadow: 0 20px 50px -24px rgba(20,30,40,0.28);
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family: var(--font-body);
+  background:
+    radial-gradient(1200px 600px at 15% -10%, color-mix(in srgb, var(--coral) 18%, transparent), transparent 60%),
+    radial-gradient(1000px 700px at 100% 0%, color-mix(in srgb, var(--aqua) 14%, transparent), transparent 55%),
+    var(--bg-0);
+  color: var(--text-0);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  transition: background-color .4s var(--ease), color .4s var(--ease);
+  overflow-x:hidden;
+}
+@media (prefers-reduced-motion: reduce){ *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important;} }
+
+img,svg{display:block;}
+a{color:inherit;}
+button{font-family:inherit;}
+::selection{background: var(--coral); color:#fff;}
+
+.wrap{max-width:1080px; margin:0 auto; padding:0 20px;}
+h1,h2,h3{font-family: var(--font-display); font-weight:600; letter-spacing:-0.01em;}
+.eyebrow{
+  font-family: var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color: var(--text-2); display:flex; align-items:center; gap:8px; margin-bottom:10px;
+}
+.eyebrow::before{content:""; width:16px; height:1px; background: var(--coral);}
+
+/* ============ GLASS CARD ============ */
+.glass{
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+/* ============ NAV ============ */
+.topnav{
+  position:sticky; top:0; z-index:50;
+  background: color-mix(in srgb, var(--bg-0) 78%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom:1px solid var(--glass-border);
+}
+.topnav-inner{
+  max-width:1080px; margin:0 auto; padding:12px 20px;
+  display:flex; align-items:center; gap:16px;
+}
+.brand{
+  display:flex; align-items:center; gap:8px; font-family:var(--font-display);
+  font-weight:600; font-size:15px; white-space:nowrap;
+}
+.brand .dot{width:7px;height:7px;border-radius:50%;background:var(--coral); box-shadow:0 0 0 4px color-mix(in srgb, var(--coral) 25%, transparent);}
+.navlinks{
+  display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; flex:1;
+}
+.navlinks::-webkit-scrollbar{display:none;}
+.navlinks a{
+  flex:none; font-size:13px; padding:8px 13px; border-radius:999px; color:var(--text-1);
+  text-decoration:none; white-space:nowrap; transition: all .25s var(--ease);
+}
+.navlinks a:hover, .navlinks a.active{background:var(--glass-strong); color:var(--text-0);}
+.themebtn{
+  width:34px; height:34px; border-radius:50%; border:1px solid var(--glass-border);
+  background:var(--glass); cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--text-0); flex:none;
+}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative; padding:74px 20px 40px; overflow:hidden;
+}
+.hero-inner{max-width:1080px; margin:0 auto; position:relative; z-index:2;}
+.hero-tag{
+  display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:12px;
+  letter-spacing:.08em; color:var(--aqua-deep); background:color-mix(in srgb, var(--aqua) 14%, transparent);
+  border:1px solid color-mix(in srgb, var(--aqua) 30%, transparent); padding:6px 14px; border-radius:999px; margin-bottom:22px;
+}
+.hero h1{
+  font-size:clamp(34px, 6vw, 62px); line-height:1.06; max-width:760px; font-weight:500;
+}
+.hero h1 em{font-style:italic; color:var(--coral);}
+.hero p.sub{
+  margin-top:18px; font-size:17px; color:var(--text-1); max-width:520px; line-height:1.7;
+}
+.hero-grid{
+  margin-top:44px; display:grid; grid-template-columns: 1.1fr 1fr; gap:16px;
+}
+@media(max-width:760px){.hero-grid{grid-template-columns:1fr;}}
+
+.ring-card{padding:26px; display:flex; align-items:center; gap:22px;}
+.ring{position:relative; width:128px; height:128px; flex:none;}
+.ring svg{transform:rotate(-90deg);}
+.ring-track{fill:none; stroke:var(--glass-border); stroke-width:8;}
+.ring-progress{fill:none; stroke:url(#ringGrad); stroke-width:8; stroke-linecap:round; transition: stroke-dashoffset 1s var(--ease);}
+.ring-label{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+.ring-label .num{font-family:var(--font-mono); font-size:26px; font-weight:500;}
+.ring-label .txt{font-size:10px; color:var(--text-2); letter-spacing:.06em;}
+.ring-info .status{font-size:13px; color:var(--text-2); margin-bottom:4px;}
+.ring-info h3{font-size:20px; margin-bottom:6px;}
+.ring-info .meta{font-family:var(--font-mono); font-size:13px; color:var(--aqua-deep);}
+
+.stat-mini{padding:22px; display:flex; flex-direction:column; gap:6px; justify-content:center;}
+.stat-mini .n{font-family:var(--font-display); font-size:30px;}
+.stat-mini .l{font-size:12px; color:var(--text-2);}
+.mini-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+
+section{padding:64px 20px;}
+section > .wrap > .sec-head{margin-bottom:30px;}
+.sec-head h2{font-size:clamp(24px,3.4vw,34px);}
+.sec-head p{color:var(--text-1); margin-top:8px; max-width:620px; font-size:15px; line-height:1.7;}
+
+.reveal{opacity:0; transform:translateY(24px); transition: all .7s var(--ease);}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+/* ============ TODAY ============ */
+.today-card{padding:32px; position:relative; overflow:hidden;}
+.today-badge{
+  font-family:var(--font-mono); font-size:12px; color:var(--coral); letter-spacing:.08em;
+  display:flex; align-items:center; gap:8px; margin-bottom:14px;
+}
+.today-badge .pulse{width:8px;height:8px;border-radius:50%; background:var(--coral); animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1; box-shadow:0 0 0 0 color-mix(in srgb, var(--coral) 50%, transparent);}50%{opacity:.6; box-shadow:0 0 0 8px transparent;}}
+.today-card h3{font-size:26px; margin-bottom:10px;}
+.today-tips{margin-top:20px; display:grid; gap:10px;}
+.today-tips li{
+  list-style:none; display:flex; gap:10px; font-size:14px; color:var(--text-1); line-height:1.6;
+  padding:12px 14px; background:var(--glass-strong); border-radius:var(--radius-sm); border:1px solid var(--glass-border);
+}
+.today-tips li::before{content:"→"; color:var(--coral); flex:none; font-weight:600;}
+
+/* ============ CARD GRID ============ */
+.grid{display:grid; gap:16px;}
+.grid.cols-2{grid-template-columns:1fr 1fr;}
+.grid.cols-3{grid-template-columns:repeat(3,1fr);}
+@media(max-width:860px){.grid.cols-3{grid-template-columns:1fr 1fr;} }
+@media(max-width:600px){.grid.cols-2, .grid.cols-3{grid-template-columns:1fr;}}
+
+.card{padding:22px; transition: transform .35s var(--ease), box-shadow .35s var(--ease);}
+.card:hover{transform:translateY(-4px);}
+.card .k{font-family:var(--font-mono); font-size:11px; color:var(--text-2); letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px;}
+.card h4{font-size:18px; margin-bottom:6px;}
+.card p{font-size:13.5px; color:var(--text-1); line-height:1.65;}
+.badge{display:inline-block; font-size:11px; padding:3px 9px; border-radius:999px; background:color-mix(in srgb, var(--aqua) 18%, transparent); color:var(--aqua-deep); font-family:var(--font-mono); margin-right:6px; margin-top:8px;}
+.badge.warn{background:color-mix(in srgb, var(--coral) 18%, transparent); color:var(--coral);}
+
+/* ============ DAY ARCHITECTURE TABLE ============ */
+.arch-table{width:100%; border-collapse:collapse; overflow:hidden; border-radius:var(--radius-md);}
+.arch-table td{padding:16px 18px; font-size:14px; border-bottom:1px solid var(--glass-border); vertical-align:top;}
+.arch-table tr:last-child td{border-bottom:none;}
+.arch-table .d{font-family:var(--font-mono); color:var(--coral); white-space:nowrap; width:130px;}
+.arch-table tr.active{background:var(--glass-strong);}
+
+/* ============ TIMELINE ============ */
+.tabbar{display:flex; gap:8px; margin-bottom:28px;}
+.tabbtn{
+  padding:10px 20px; border-radius:999px; border:1px solid var(--glass-border); background:var(--glass);
+  cursor:pointer; font-size:14px; color:var(--text-1); transition:all .25s var(--ease);
+}
+.tabbtn.active{background:var(--coral); color:#fff; border-color:var(--coral);}
+.tl-panel{display:none;}
+.tl-panel.active{display:block;}
+.timeline{position:relative; padding-left:32px;}
+.timeline::before{content:""; position:absolute; left:9px; top:6px; bottom:6px; width:2px; background:linear-gradient(var(--coral), var(--aqua));}
+.tl-item{position:relative; padding-bottom:28px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-dot{
+  position:absolute; left:-32px; top:2px; width:20px; height:20px; border-radius:50%;
+  background:var(--bg-1); border:2px solid var(--coral); display:flex; align-items:center; justify-content:center;
+}
+.tl-dot svg{width:10px;height:10px; stroke:var(--coral);}
+.tl-time{font-family:var(--font-mono); font-size:13px; color:var(--coral); margin-bottom:4px;}
+.tl-card{padding:18px 20px;}
+.tl-card h4{font-size:16.5px; margin-bottom:6px;}
+.tl-card p{font-size:13.5px; color:var(--text-1); line-height:1.65;}
+.tl-actions{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;}
+.pill-link{
+  font-size:12px; padding:6px 12px; border-radius:999px; border:1px solid var(--glass-border);
+  text-decoration:none; color:var(--text-1); display:inline-flex; align-items:center; gap:5px; transition:all .2s;
+}
+.pill-link:hover{background:var(--glass-strong); color:var(--text-0);}
+
+/* ============ EXCURSION CARDS ============ */
+.exc-card{padding:0; overflow:hidden;}
+.exc-top{
+  padding:20px 20px 0; display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
+}
+.exc-num{font-family:var(--font-display); font-size:28px; color:var(--glass-border); font-weight:600;}
+.exc-body{padding:6px 20px 20px;}
+.exc-body h4{font-size:17px; margin-bottom:8px;}
+.exc-body p{font-size:13.5px; color:var(--text-1); line-height:1.6;}
+.exc-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;}
+.tag{font-size:11px; padding:4px 10px; border-radius:999px; background:var(--glass-strong); border:1px solid var(--glass-border); color:var(--text-2);}
+
+/* ============ ALERT ============ */
+.alert{padding:20px 22px; border-left:3px solid var(--coral); display:flex; gap:14px; align-items:flex-start;}
+.alert.aqua{border-left-color:var(--aqua-deep);}
+.alert svg{flex:none; margin-top:2px; stroke:var(--coral); width:20px; height:20px;}
+.alert.aqua svg{stroke:var(--aqua-deep);}
+.alert h4{font-size:15px; margin-bottom:4px;}
+.alert p{font-size:13.5px; color:var(--text-1); line-height:1.65;}
+
+/* ============ CHECKLIST ============ */
+.checklist{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+@media(max-width:600px){.checklist{grid-template-columns:1fr;}}
+.chk-item{
+  display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:var(--radius-sm);
+  background:var(--glass-strong); border:1px solid var(--glass-border); cursor:pointer; transition:all .2s;
+}
+.chk-item input{width:18px; height:18px; accent-color:var(--coral); flex:none;}
+.chk-item span{font-size:14px;}
+.chk-item.done span{text-decoration:line-through; color:var(--text-2);}
+.chk-progress{margin-bottom:18px; height:6px; border-radius:99px; background:var(--glass-strong); overflow:hidden;}
+.chk-progress-bar{height:100%; background:linear-gradient(90deg, var(--coral), var(--aqua)); border-radius:99px; transition:width .4s var(--ease);}
+
+/* ============ BUDGET ============ */
+.budget-top{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px;}
+@media(max-width:760px){.budget-top{grid-template-columns:1fr 1fr;}}
+.budget-form{display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:10px; margin-bottom:20px;}
+@media(max-width:700px){.budget-form{grid-template-columns:1fr 1fr;}}
+.budget-form input, .budget-form select{
+  padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--glass-border);
+  background:var(--glass-strong); color:var(--text-0); font-family:inherit; font-size:14px; outline:none;
+}
+.budget-form button{
+  padding:12px 20px; border-radius:var(--radius-sm); border:none; background:var(--coral); color:#fff; cursor:pointer; font-weight:600;
+}
+.budget-list{display:flex; flex-direction:column; gap:8px;}
+.budget-row{
+  display:flex; justify-content:space-between; align-items:center; padding:12px 16px;
+  background:var(--glass-strong); border-radius:var(--radius-sm); border:1px solid var(--glass-border); font-size:13.5px;
+}
+.budget-row .amt{font-family:var(--font-mono); color:var(--coral);}
+.budget-row button{background:none; border:none; color:var(--text-2); cursor:pointer; font-size:16px;}
+.empty{font-size:13.5px; color:var(--text-2); text-align:center; padding:30px 0;}
+
+/* ============ EMERGENCY ============ */
+.em-card{padding:20px; display:flex; justify-content:space-between; align-items:center; gap:10px;}
+.em-card .role{font-size:12px; color:var(--text-2); margin-bottom:4px;}
+.em-card .name{font-size:15px; font-weight:600;}
+.em-card .num{font-family:var(--font-mono); color:var(--coral); font-size:14px;}
+
+/* ============ WEATHER & CURRENCY ============ */
+.weather-hero{padding:30px; display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
+.weather-temp{font-family:var(--font-display); font-size:56px; line-height:1;}
+.weather-icon{font-size:52px; line-height:1;}
+.weather-meta{display:flex; gap:18px; flex-wrap:wrap; margin-top:10px;}
+.weather-meta span{font-size:13px; color:var(--text-1); font-family:var(--font-mono);}
+.weather-place{font-size:13px; color:var(--text-2); margin-bottom:6px; font-family:var(--font-mono); letter-spacing:.06em; text-transform:uppercase;}
+.skeleton{display:inline-block; height:1em; width:60px; border-radius:6px; background:linear-gradient(90deg, var(--glass-strong) 25%, var(--glass-border) 50%, var(--glass-strong) 75%); background-size:200% 100%; animation:shimmer 1.4s infinite;}
+@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+.fx-card{padding:26px;}
+.fx-rate{font-family:var(--font-mono); font-size:14px; color:var(--aqua-deep); margin-bottom:18px;}
+.fx-row{display:grid; grid-template-columns:1fr auto 1fr; gap:12px; align-items:center; margin-bottom:12px;}
+.fx-row input{
+  width:100%; padding:14px 16px; border-radius:var(--radius-sm); border:1px solid var(--glass-border);
+  background:var(--glass-strong); color:var(--text-0); font-family:var(--font-mono); font-size:18px; outline:none;
+}
+.fx-row .unit{font-size:12px; color:var(--text-2); margin-top:4px; display:block;}
+.fx-swap{width:38px; height:38px; border-radius:50%; border:1px solid var(--glass-border); background:var(--glass); cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--text-1);}
+.offline-note{font-size:12px; color:var(--text-2); margin-top:14px; display:flex; align-items:center; gap:6px;}
+
+footer{padding:40px 20px 60px; text-align:center;}
+footer p{font-size:12px; color:var(--text-2); font-family:var(--font-mono);}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="var(--coral)"/>
+      <stop offset="100%" stop-color="var(--aqua)"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="brand"><span class="dot"></span>莎倫娜號控制中心</div>
+    <div class="navlinks" id="navlinks">
+      <a href="#today">今日</a>
+      <a href="#overview">總覽</a>
+      <a href="#timeline">時間軸</a>
+      <a href="#excursion">岸上景點</a>
+      <a href="#transport">交通登船</a>
+      <a href="#weather">天氣匯率</a>
+      <a href="#dining">餐飲購物</a>
+      <a href="#tips">旅客心得</a>
+      <a href="#budget">預算</a>
+      <a href="#checklist">打包清單</a>
+      <a href="#emergency">緊急聯絡</a>
+    </div>
+    <button class="themebtn" id="themeBtn" aria-label="切換主題">
+      <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-tag">⚓ COSTA SERENA · 基隆 ⇄ 那霸 · 8/8–8/11（四日三夜）</div>
+    <h1>十人家族的<br><em>沖繩甲板</em>控制中心。</h1>
+    <p class="sub">不是又一份行程表。這裡整理了每一站的時間、風險與備案——讓你打開手機，就知道現在該往哪走、幾點該回船。</p>
+
+    <div class="hero-grid">
+      <div class="ring-card glass reveal">
+        <div class="ring">
+          <svg width="128" height="128" viewBox="0 0 128 128">
+            <circle class="ring-track" cx="64" cy="64" r="56"/>
+            <circle class="ring-progress" id="tripRing" cx="64" cy="64" r="56" stroke-dasharray="352" stroke-dashoffset="352"/>
+          </svg>
+          <div class="ring-label"><span class="num" id="ringNum">–</span><span class="txt">DAY / 4</span></div>
+        </div>
+        <div class="ring-info">
+          <div class="status" id="tripStatus">航程狀態載入中</div>
+          <h3 id="tripHeadline">—</h3>
+          <div class="meta" id="tripMeta">—</div>
+        </div>
+      </div>
+      <div class="mini-row">
+        <div class="stat-mini glass reveal"><div class="n">10</div><div class="l">同行家族成員</div></div>
+        <div class="stat-mini glass reveal"><div class="n">2</div><div class="l">岸上行程日（8/9・8/10）</div></div>
+        <div class="stat-mini glass reveal"><div class="n">11.45萬</div><div class="l">噸位・14層甲板</div></div>
+        <div class="stat-mini glass reveal"><div class="n">內艙房</div><div class="l">本次艙型</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- TODAY -->
+<section id="today">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">TODAY'S DASHBOARD</div>
+      <h2>今天，你需要知道的事</h2>
+    </div>
+    <div class="today-card glass reveal">
+      <div class="today-badge"><span class="pulse"></span><span id="todayDateStr">—</span></div>
+      <h3 id="todayTitle">—</h3>
+      <p id="todaySummary" style="color:var(--text-1); font-size:14px; line-height:1.7;">—</p>
+      <ul class="today-tips" id="todayTips"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">CRUISE OVERVIEW</div>
+      <h2>四天航程架構</h2>
+      <p>全程只有那霸這一天半安排下船活動，其餘天數留在船上自由活動。點狀態列可對照今天位置。</p>
+    </div>
+    <div class="glass reveal" style="padding:8px 12px; overflow-x:auto;">
+      <table class="arch-table" id="archTable"></table>
+    </div>
+
+    <div class="grid cols-3" style="margin-top:16px;">
+      <div class="card glass reveal">
+        <div class="k">Ship</div>
+        <h4>歌詩達莎倫娜號</h4>
+        <p>Costa Serena · 11.45萬噸 · 載客3,780人 · 客艙1,500間 · 船長290m／寬35.5m</p>
+      </div>
+      <div class="card glass reveal">
+        <div class="k">Home Port</div>
+        <h4>基隆港 ⇄ 那霸港</h4>
+        <p>基隆為母港（登船／最終回船），那霸僅為航程中的停靠站，非母港。</p>
+      </div>
+      <div class="card glass reveal">
+        <div class="k">Cabin</div>
+        <h4>內艙房</h4>
+        <p>回程 8/11（二）抵基隆約 08:00，內艙房旅客依號碼牌排定約 10:50 左右下船（現場公告為準）。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">SHORE TIMELINE</div>
+      <h2>岸上行程時間軸</h2>
+      <p>8/9（週日）美國村夕陽夜景、8/10（週一）波上宮海景半日遊，逐站列出銜接時間與注意事項。</p>
+    </div>
+    <div class="tabbar reveal">
+      <button class="tabbtn active" data-tab="day1">Day 1 · 8/9 美國村夕陽夜景</button>
+      <button class="tabbtn" data-tab="day2">Day 2 · 8/10 波上宮海景半日遊</button>
+    </div>
+    <div class="tl-panel active" id="panel-day1"><div class="timeline" id="tl-day1"></div></div>
+    <div class="tl-panel" id="panel-day2"><div class="timeline" id="tl-day2"></div></div>
+  </div>
+</section>
+
+<!-- EXCURSION -->
+<section id="excursion">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">SHORE EXCURSION</div>
+      <h2>岸上景點卡</h2>
+      <p>每張卡片對應時間軸上的一站，含建議停留與地圖連結。</p>
+    </div>
+    <div class="grid cols-3" id="excCards"></div>
+  </div>
+</section>
+
+<!-- TRANSPORT -->
+<section id="transport">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">TRANSPORTATION & BOARDING</div>
+      <h2>交通與登船提醒</h2>
+    </div>
+    <div class="grid cols-2">
+      <div class="alert glass reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.3 3.9L2.5 17a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+        <div>
+          <h4>⚓ 泊位異動通知（Costa 官方，2026/7/27）</h4>
+          <p>8/8 登船當天，原訂停靠<strong>基隆港東岸 E2+E3（港務大樓）</strong>，已改為<strong>基隆港西岸 W3（西岸旅客中心碼頭）</strong>。航次日期與時間不變，只有登船地點改變——司機導航務必設定西岸旅客大樓。</p>
+        </div>
+      </div>
+      <div class="alert aqua glass reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
+        <div>
+          <h4>🎫 下船號碼牌分流</h4>
+          <p>你們是自行包車（非官方岸上行程），下船需依號碼牌分批排隊，第一批到最後一批可能差 1 小時以上。Day1 表定 16:15 起點，實際到場時間建議留彈性，或詢問是否能提前一晚領號碼牌。</p>
+        </div>
+      </div>
+      <div class="alert glass reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+        <div>
+          <h4>🕐 那霸與台灣有 1 小時時差</h4>
+          <p>日本（含沖繩）為 UTC+9，比台灣快 1 小時。建議登船後跟服務台確認船上廣播時間是否已切換為日本時間，避免整團誤判集合時間。</p>
+        </div>
+      </div>
+      <div class="alert aqua glass reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <div>
+          <h4>🚐 自駕備註（大型廂型車＋司機）</h4>
+          <p>行程本來就是接送式設計，有司機不用擔心停車。安里 1丁目領貨、屋宜原夜景屬路邊臨停快進快出；PARCO CITY、安良波公園、那霸港碼頭都有正式停車場。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass reveal" style="margin-top:16px; padding:24px;">
+      <div class="k" style="font-family:var(--font-mono); font-size:11px; color:var(--text-2); text-transform:uppercase; margin-bottom:14px;">基隆港登船流程參考（同類行程範例，實際以登船證為準）</div>
+      <div class="grid cols-3">
+        <div><div style="font-family:var(--font-mono); color:var(--coral); font-size:20px;">11:30</div><div style="font-size:13px; color:var(--text-1); margin-top:4px;">開始行李托運（建議 10:00 前抵達，避開尖峰排隊）</div></div>
+        <div><div style="font-family:var(--font-mono); color:var(--coral); font-size:20px;">12:00–15:00</div><div style="font-size:13px; color:var(--text-1); margin-top:4px;">出國查驗，關櫃時間 15:00</div></div>
+        <div><div style="font-family:var(--font-mono); color:var(--coral); font-size:20px;">55×35×25</div><div style="font-size:13px; color:var(--text-1); margin-top:4px;">手提行李尺寸上限（公分）；託運建議每件 ≤23kg</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WEATHER & CURRENCY -->
+<section id="weather">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">WEATHER & CURRENCY</div>
+      <h2>即時天氣與匯率</h2>
+      <p>手機有網路連線就會自動更新（免金鑰公開 API：Open-Meteo・Frankfurter）。沒有網路時會顯示離線提示與備用連結。</p>
+    </div>
+    <div class="grid cols-2">
+      <div class="weather-hero glass reveal">
+        <div class="weather-icon" id="wxIcon">🌤️</div>
+        <div>
+          <div class="weather-place">那霸 Naha, Okinawa</div>
+          <div class="weather-temp"><span class="skeleton" id="wxTemp"></span>°C</div>
+          <div class="weather-meta">
+            <span id="wxFeels">體感 <span class="skeleton"></span>°C</span>
+            <span id="wxHumidity">濕度 <span class="skeleton"></span>%</span>
+            <span id="wxWind">風速 <span class="skeleton"></span> km/h</span>
+          </div>
+          <div class="offline-note" id="wxNote">🔄 讀取中…</div>
+        </div>
+      </div>
+
+      <div class="fx-card glass reveal">
+        <div class="weather-place">JPY ⇄ TWD 匯率換算</div>
+        <div class="fx-rate" id="fxRateLabel">讀取匯率中…</div>
+        <div class="fx-row">
+          <div><input type="number" id="fxJpy" placeholder="0" value="1000"><span class="unit">日圓 JPY</span></div>
+          <button class="fx-swap" id="fxSwap" aria-label="交換">⇄</button>
+          <div><input type="number" id="fxTwd" placeholder="0" readonly><span class="unit">新台幣 TWD</span></div>
+        </div>
+        <div class="offline-note" id="fxNote">🔄 讀取中…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DINING & SHOPPING -->
+<section id="dining">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">DINING & SHOPPING</div>
+      <h2>餐飲與購物重點</h2>
+    </div>
+    <div class="grid cols-2">
+      <div class="card glass reveal">
+        <div class="k">19:10–21:10 · Day 1</div>
+        <h4>BEEFY'S 露台區晚餐</h4>
+        <p>夕陽夜景牛排，3桌分散（3+3+4）。長輩小孩4人桌安排露台內側（風小）；兩組3人桌大人安排臨海特等席。訂位務必向餐廳確認三桌相鄰。</p>
+        <span class="badge warn">需確認鄰近座位</span>
+      </div>
+      <div class="card glass reveal">
+        <div class="k">16:45–18:00 · Day 1</div>
+        <h4>PARCO CITY 血拼採買</h4>
+        <p>阿卡將本舖採購嬰幼兒用品、藥妝店、日系服飾，實際購物時間 75 分鐘，長輩可在面海玻璃帷幕沙發休息區放空。</p>
+        <span class="badge">75 分鐘</span>
+      </div>
+      <div class="card glass reveal">
+        <div class="k">Day 2 尾聲</div>
+        <h4>便利商店最後補給</h4>
+        <p>波之上公園回程路上，買 Blue Seal 冰淇淋、炸雞塊、黑糖零食等沖繩限定小吃，順手花掉剩下的日幣零錢。</p>
+      </div>
+      <div class="card glass reveal">
+        <div class="k">船上用餐</div>
+        <h4>自助餐廳非全天開放</h4>
+        <p>約 07:00–09:00 早餐，主餐廳 17:30／19:45 兩個入席時段。若岸上行程晚歸錯過主餐廳，留意 9 樓自助餐廳的開放時段作為備案。</p>
+        <span class="badge">待確認實際樓層／時段</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section id="tips">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">TRAVELER TIPS</div>
+      <h2>真實旅客心得</h2>
+      <p>來自網路旅客分享，非官方保證，僅供對照與心理準備。</p>
+    </div>
+    <div class="grid cols-2" id="tipsCards"></div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section id="budget">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">BUDGET</div>
+      <h2>旅行花費追蹤</h2>
+      <p>資料只存在你這台裝置的瀏覽器裡（localStorage），不會上傳。</p>
+    </div>
+    <div class="budget-top">
+      <div class="stat-mini glass reveal"><div class="n" id="bTotal">NT$0</div><div class="l">總花費</div></div>
+      <div class="stat-mini glass reveal"><div class="n" id="bFood">NT$0</div><div class="l">餐飲</div></div>
+      <div class="stat-mini glass reveal"><div class="n" id="bShop">NT$0</div><div class="l">購物</div></div>
+      <div class="stat-mini glass reveal"><div class="n" id="bOther">NT$0</div><div class="l">交通／其他</div></div>
+    </div>
+    <div class="glass reveal" style="padding:22px;">
+      <div class="budget-form">
+        <input type="text" id="bDesc" placeholder="項目，例如：阿卡將採購">
+        <input type="number" id="bAmt" placeholder="金額 (NT$)">
+        <select id="bCat">
+          <option value="餐飲">餐飲</option>
+          <option value="購物">購物</option>
+          <option value="其他">交通／其他</option>
+        </select>
+        <button id="bAdd">新增</button>
+      </div>
+      <div class="budget-list" id="bList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">PACKING CHECKLIST</div>
+      <h2>打包清單</h2>
+      <p>點擊項目即可勾選，狀態會自動保存在這台裝置。</p>
+    </div>
+    <div class="glass reveal" style="padding:24px;">
+      <div class="chk-progress"><div class="chk-progress-bar" id="chkBar" style="width:0%"></div></div>
+      <div class="checklist" id="chkList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- EMERGENCY -->
+<section id="emergency">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">EMERGENCY</div>
+      <h2>緊急聯絡（待補齊）</h2>
+      <p>拿到登船證或訂票確認信後，把船公司客服、旅行社窗口、保險專線填進來。</p>
+    </div>
+    <div class="grid cols-2" id="emCards"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>沖繩郵輪岸上旅遊控制中心 · 資料整理自行程 PDF、Costa 官方通知與家族討論 · 僅供個人參考</p>
+</footer>
+
+<script>
+/* ============================================================
+   DATA — 之後有新資料（登船證、餐廳確認單、緊急電話）直接改這裡
+   ============================================================ */
+const DATA = {
+  days: [
+    {date:"2026-08-08", num:1, title:"基隆登船出發", port:"基隆港西岸旅客中心碼頭", summary:"下午出航", excursion:false,
+      tips:["建議10:00前抵達基隆港，避免尖峰排隊超過2小時","行李托運11:30開始，出國查驗12:00–15:00，關櫃15:00","⚓ 登船地點已改為西岸旅客大樓，非原訂東岸港務大樓，務必再次確認地址"]},
+    {date:"2026-08-09", num:2, title:"抵那霸・美國村夕陽夜景", port:"那霸港碼頭（WAKASA）", summary:"下午抵達，晚上 Day1 岸上行程", excursion:true, ref:"day1",
+      tips:["自行包車非官方岸上行程，下船需排號碼牌分批，16:15起點請留彈性","19:10 BEEFY'S 晚餐訂位有時效性，留意傍晚車流","過夜停靠，不趕22:30回船，隔日中午12:00前回船即可"]},
+    {date:"2026-08-10", num:3, title:"那霸半日遊・啟航返程", port:"那霸港碼頭", summary:"上午 Day2 岸上行程，13:00啟航返程，當晚航向基隆", excursion:true, ref:"day2",
+      tips:["全程步行行程，無塞車風險","11:10抵港後尚有充裕時間，12:00前回船即可","13:00啟航後整晚航行返回基隆"]},
+    {date:"2026-08-11", num:4, title:"返抵基隆", port:"基隆港", summary:"約08:00抵港，內艙房旅客約10:50下船", excursion:false,
+      tips:["內艙房下船排定約10:50左右，實際依現場廣播為準","接送車建議以10:50左右為基準並預留彈性"]}
+  ],
+  day1: [
+    {time:"16:15–16:30", title:"市區快速取貨", loc:"那霸市安里 1丁目 8-23（1階）", desc:"小巴臨停，下車快速領貨並固定車廂，長輩小孩不下車。", dur:"15分鐘", map:"那覇市安里1丁目8-23"},
+    {time:"16:45–18:00", title:"PARCO CITY 海景血拼", loc:"SAN-A NAHA PARCO CITY", desc:"車程15分鐘，實際購物1小時15分。長輩到面海玻璃帷幕沙發休息區；媽媽速戰速決前往阿卡將本舖，其他人逛藥妝／服飾。", dur:"75分鐘", map:"SAN-A NAHA PARCO CITY"},
+    {time:"18:20–18:50", title:"海盜船公園、沙灘散步", loc:"安良波公園 Araha Park", desc:"車程20分鐘。600公尺無障礙海濱步道適合推輪椅，小朋友可在海盜船遊樂設施放電，全家拍沖繩風合照。", dur:"30分鐘", map:"安良波公園 Araha Park 北谷"},
+    {time:"18:55", title:"抵達美國村，漫步前往餐廳", loc:"美國村 American Village", desc:"距安良波公園5分鐘車程，日落約19:10，邊看晚霞邊步行到BEEFY'S。", dur:"—", map:"美國村 沖繩"},
+    {time:"19:10–21:10", title:"BEEFY'S 夕陽夜景晚餐", loc:"BEEFY'S 露台區", desc:"3桌分散（3+3+4）。長輩小孩4人桌安排露台內側（風小）；兩組3人桌大人安排臨海特等席。", dur:"120分鐘", map:"BEEFY'S 美国村"},
+    {time:"21:10–21:30", title:"美國村夢幻夜景漫步", loc:"Depot Island 沿海木棧道", desc:"全程無障礙平坦，佈滿五彩美式霓虹燈，適合拍10人家族大合照。", dur:"20分鐘", map:"Depot Island 美国村"},
+    {time:"21:45–21:55", title:"屋宜原夜景巡禮（免下車）", loc:"屋宜原夜景區", desc:"小巴繞至美國村後方，隔窗俯瞰美濱美國村與美軍基地90度夜景，長輩小孩可坐車上休息。", dur:"10分鐘", map:"屋宜原 夜景 沖縄"},
+    {time:"22:30", title:"安全抵達，準時回船", loc:"那霸港碼頭（WAKASA）", desc:"過夜停靠，不趕開船，隔日中午12:00前回船即可。", dur:"—", map:"那覇港 那覇クルーズターミナル"}
+  ],
+  day2: [
+    {time:"08:00", title:"準時出發", loc:"歌詩達莎倫娜號 → 港區步道", desc:"推推車下船，沿港區步道往波之上方向漫步，錯開後方登岸人潮。", dur:"—", map:"那覇港 波の上"},
+    {time:"08:15–09:15", title:"早晨清幽參拜", loc:"波上宮 Naminoue Shrine", desc:"步行約15分鐘。無障礙提醒：推車走左手邊柏油車道坡道，避開正面石階。可洗手參拜、選御守、買祈願繪馬。", dur:"60分鐘", map:"波上宮 那覇"},
+    {time:"09:15–10:30", title:"黃金放空時光", loc:"波之上海灘 ＆ Umisora公園", desc:"順坡道走下即達。長輩可在無障礙海濱高架木棧道漫步賞景；小孩趁沙灘未曬燙踩水堆沙，拍全家合照。", dur:"75分鐘", map:"波の上ビーチ 那覇"},
+    {time:"10:30–11:10", title:"最後大補給 ＆ 悠閒回程", loc:"便利商店 → 那霸港碼頭", desc:"沿波之上公園平坦道路走回，途中買Blue Seal冰淇淋、炸雞塊、黑糖零食等沖繩限定小吃。", dur:"40分鐘", map:"那覇港"},
+    {time:"11:10", title:"優雅登船", loc:"那霸港碼頭", desc:"提早抵達，10人從容通過安檢。12:00前回船即可，13:00甲板上目送郵輪駛離那霸港。", dur:"—", map:"那覇港"}
+  ],
+  tips: [
+    {title:"下船分流／號碼牌制度", body:"若不是跟官方岸上觀光行程，下船需依號碼牌分批排隊，第一批到最後一批可能差1小時以上。建議詢問是否能提前一晚領號碼牌。", tag:"實用"},
+    {title:"登船流程通常順暢", body:"掃描船卡 → 上陸許可證貼護照影本 → 海關蓋章 → 行李檢查（不可帶生鮮水果入境）。多數旅客反映不會排太久。", tag:"參考"},
+    {title:"波上宮腹地不大", body:"純拍照約20分鐘就逛完，跟行程安排的1小時（含步行、參拜、買御守）大致吻合，屬正常範圍。", tag:"符合預期"},
+    {title:"基隆出發當天提醒", body:"行李托運雖排11:30開始，建議10:00前抵達基隆港，避免卡在人潮尖峰排隊超過2小時。", tag:"實用"}
+  ],
+  checklist: ["護照","登船證／訂位確認信","信用卡","現金（新台幣＋日幣）","雨傘","外套（船上冷氣強）","手機充電器","行動電源","瓶裝水","防曬乳","帽子／墨鏡","長輩常備藥物","小孩玩水衣物","嬰幼兒用品（尿布／奶粉）","轉接頭"],
+  emergency: [
+    {role:"郵輪公司客服", name:"Costa 客服專線", num:"待補"},
+    {role:"訂票旅行社", name:"colatour 可樂旅遊", num:"待補"},
+    {role:"旅遊保險", name:"保險公司緊急專線", num:"待補"},
+    {role:"駐日代表處（沖繩）", name:"台北駐日經濟文化代表處那霸分處", num:"待補"}
+  ]
+};
+
+/* ============ RENDER: ARCH TABLE ============ */
+const today = new Date();
+const todayStr = today.toISOString().slice(0,10);
+function fmtDate(d){
+  const dt = new Date(d+"T00:00:00");
+  const w = ["日","一","二","三","四","五","六"][dt.getDay()];
+  return `${dt.getMonth()+1}/${dt.getDate()}（週${w}）`;
+}
+const archBody = DATA.days.map(d=>{
+  const isToday = d.date === todayStr;
+  return `<tr class="${isToday?'active':''}"><td class="d">${fmtDate(d.date)}</td><td><strong>${d.title}</strong><div style="color:var(--text-2); font-size:12.5px; margin-top:3px;">${d.port} · ${d.summary}${isToday?' · <span style="color:var(--coral)">● 今天</span>':''}</div></td></tr>`;
+}).join("");
+document.getElementById("archTable").innerHTML = archBody;
+
+/* ============ RENDER: TODAY DASHBOARD ============ */
+(function(){
+  const curr = DATA.days.find(d=>d.date===todayStr);
+  const dateEl = document.getElementById("todayDateStr");
+  const titleEl = document.getElementById("todayTitle");
+  const sumEl = document.getElementById("todaySummary");
+  const tipsEl = document.getElementById("todayTips");
+  const ring = document.getElementById("tripRing");
+  const ringNum = document.getElementById("ringNum");
+  const statusEl = document.getElementById("tripStatus");
+  const headEl = document.getElementById("tripHeadline");
+  const metaEl = document.getElementById("tripMeta");
+  const first = DATA.days[0], last = DATA.days[DATA.days.length-1];
+  const C = 2*Math.PI*56;
+
+  dateEl.textContent = new Date().toLocaleDateString('zh-TW',{month:'long',day:'numeric',weekday:'long'});
+
+  if(curr){
+    titleEl.textContent = `Day ${curr.num} · ${curr.title}`;
+    sumEl.textContent = `${curr.port} — ${curr.summary}`;
+    tipsEl.innerHTML = curr.tips.map(t=>`<li>${t}</li>`).join("");
+    ringNum.textContent = curr.num;
+    ring.style.strokeDashoffset = C - (curr.num/4)*C;
+    statusEl.textContent = "航程進行中";
+    headEl.textContent = curr.title;
+    metaEl.textContent = curr.port;
+  } else if (todayStr < first.date){
+    const diff = Math.ceil((new Date(first.date) - today) / 86400000);
+    titleEl.textContent = "尚未出發";
+    sumEl.textContent = `距離 8/8 基隆登船還有 ${diff} 天。`;
+    tipsEl.innerHTML = `<li>行前確認登船證、艙房分配與司機接送時間</li><li>檢查打包清單進度</li>`;
+    ringNum.textContent = "0";
+    ring.style.strokeDashoffset = C;
+    statusEl.textContent = "倒數中";
+    headEl.textContent = `${diff} 天後出發`;
+    metaEl.textContent = "基隆港西岸旅客中心碼頭";
+  } else {
+    titleEl.textContent = "航程已結束";
+    sumEl.textContent = "希望這趟沖繩家族之旅一切順利！";
+    tipsEl.innerHTML = `<li>別忘了把照片和收據整理留念</li>`;
+    ringNum.textContent = "4";
+    ring.style.strokeDashoffset = 0;
+    statusEl.textContent = "已完成";
+    headEl.textContent = "旅程圓滿結束";
+    metaEl.textContent = "基隆港";
+  }
+})();
+
+/* ============ RENDER: TIMELINE ============ */
+function iconClock(){return `<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>`;}
+function renderTimeline(key, arr){
+  const el = document.getElementById("tl-"+key);
+  el.innerHTML = arr.map(ev=>`
+    <div class="tl-item">
+      <div class="tl-dot">${iconClock()}</div>
+      <div class="tl-time">${ev.time}${ev.dur!=="—"?` · ${ev.dur}`:""}</div>
+      <div class="tl-card glass">
+        <h4>${ev.title}</h4>
+        <p style="color:var(--aqua-deep); font-size:12.5px; margin-bottom:6px;">${ev.loc}</p>
+        <p>${ev.desc}</p>
+        <div class="tl-actions">
+          <a class="pill-link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ev.map)}">📍 Google Maps</a>
+          <a class="pill-link" target="_blank" href="https://maps.apple.com/?q=${encodeURIComponent(ev.map)}">🍎 Apple Maps</a>
+        </div>
+      </div>
+    </div>`).join("");
+}
+renderTimeline("day1", DATA.day1);
+renderTimeline("day2", DATA.day2);
+
+document.querySelectorAll(".tabbtn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".tabbtn").forEach(b=>b.classList.remove("active"));
+    document.querySelectorAll(".tl-panel").forEach(p=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("panel-"+btn.dataset.tab).classList.add("active");
+  });
+});
+
+/* ============ RENDER: EXCURSION CARDS ============ */
+const allStops = [...DATA.day1.map(e=>({...e,day:"Day 1"})), ...DATA.day2.map(e=>({...e,day:"Day 2"}))].filter(e=>e.dur!=="—");
+document.getElementById("excCards").innerHTML = allStops.map((s,i)=>`
+  <div class="exc-card glass reveal">
+    <div class="exc-top"><span class="exc-num">${String(i+1).padStart(2,'0')}</span><span class="tag">${s.day}</span></div>
+    <div class="exc-body">
+      <h4>${s.title}</h4>
+      <p>${s.desc}</p>
+      <div class="exc-tags"><span class="tag">⏱ ${s.dur}</span><span class="tag">${s.time}</span></div>
+      <div class="tl-actions"><a class="pill-link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.map)}">📍 地圖</a></div>
+    </div>
+  </div>`).join("");
+
+/* ============ RENDER: TIPS ============ */
+document.getElementById("tipsCards").innerHTML = DATA.tips.map(t=>`
+  <div class="card glass reveal">
+    <div class="k">${t.tag}</div>
+    <h4>${t.title}</h4>
+    <p>${t.body}</p>
+  </div>`).join("");
+
+/* ============ RENDER: EMERGENCY ============ */
+document.getElementById("emCards").innerHTML = DATA.emergency.map(e=>`
+  <div class="em-card glass reveal">
+    <div><div class="role">${e.role}</div><div class="name">${e.name}</div></div>
+    <div class="num">${e.num}</div>
+  </div>`).join("");
+
+/* ============ CHECKLIST (localStorage) ============ */
+(function(){
+  const stored = JSON.parse(localStorage.getItem("packing_v1") || "{}");
+  const list = document.getElementById("chkList");
+  function render(){
+    list.innerHTML = DATA.checklist.map(item=>{
+      const done = !!stored[item];
+      return `<label class="chk-item ${done?'done':''}"><input type="checkbox" data-item="${item}" ${done?'checked':''}><span>${item}</span></label>`;
+    }).join("");
+    const doneCount = Object.values(stored).filter(Boolean).length;
+    document.getElementById("chkBar").style.width = (doneCount/DATA.checklist.length*100)+"%";
+  }
+  list.addEventListener("change", e=>{
+    if(e.target.matches("input[type=checkbox]")){
+      stored[e.target.dataset.item] = e.target.checked;
+      localStorage.setItem("packing_v1", JSON.stringify(stored));
+      render();
+    }
+  });
+  render();
+})();
+
+/* ============ BUDGET (localStorage) ============ */
+(function(){
+  let items = JSON.parse(localStorage.getItem("budget_v1") || "[]");
+  const listEl = document.getElementById("bList");
+  function fmt(n){return "NT$"+n.toLocaleString();}
+  function render(){
+    if(items.length===0){ listEl.innerHTML = `<div class="empty">還沒有花費紀錄，開始新增吧</div>`; }
+    else {
+      listEl.innerHTML = items.map((it,i)=>`
+        <div class="budget-row">
+          <div>${it.desc || "（未命名）"} <span class="tag" style="margin-left:6px;">${it.cat}</span></div>
+          <div style="display:flex; align-items:center; gap:10px;"><span class="amt">${fmt(it.amt)}</span><button data-i="${i}">✕</button></div>
+        </div>`).join("");
+    }
+    const total = items.reduce((s,i)=>s+i.amt,0);
+    const byCat = c=>items.filter(i=>i.cat===c).reduce((s,i)=>s+i.amt,0);
+    document.getElementById("bTotal").textContent = fmt(total);
+    document.getElementById("bFood").textContent = fmt(byCat("餐飲"));
+    document.getElementById("bShop").textContent = fmt(byCat("購物"));
+    document.getElementById("bOther").textContent = fmt(byCat("其他"));
+  }
+  document.getElementById("bAdd").addEventListener("click", ()=>{
+    const desc = document.getElementById("bDesc").value.trim();
+    const amt = parseFloat(document.getElementById("bAmt").value);
+    const cat = document.getElementById("bCat").value;
+    if(!amt || amt<=0) return;
+    items.push({desc,amt,cat});
+    localStorage.setItem("budget_v1", JSON.stringify(items));
+    document.getElementById("bDesc").value=""; document.getElementById("bAmt").value="";
+    render();
+  });
+  listEl.addEventListener("click", e=>{
+    if(e.target.matches("button[data-i]")){
+      items.splice(+e.target.dataset.i,1);
+      localStorage.setItem("budget_v1", JSON.stringify(items));
+      render();
+    }
+  });
+  render();
+})();
+
+/* ============ WEATHER (Open-Meteo, no key) ============ */
+(function(){
+  const NAHA = {lat:26.2124, lon:127.6809};
+  const iconMap = (code)=>{
+    if(code===0) return "☀️";
+    if([1,2].includes(code)) return "🌤️";
+    if(code===3) return "☁️";
+    if([45,48].includes(code)) return "🌫️";
+    if([51,53,55,56,57].includes(code)) return "🌦️";
+    if([61,63,65,66,67,80,81,82].includes(code)) return "🌧️";
+    if([71,73,75,77,85,86].includes(code)) return "🌨️";
+    if([95,96,99].includes(code)) return "⛈️";
+    return "🌤️";
+  };
+  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${NAHA.lat}&longitude=${NAHA.lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Asia%2FTokyo`)
+    .then(r=>{ if(!r.ok) throw new Error("weather fetch failed"); return r.json(); })
+    .then(d=>{
+      const c = d.current;
+      document.getElementById("wxIcon").textContent = iconMap(c.weather_code);
+      document.getElementById("wxTemp").outerHTML = Math.round(c.temperature_2m);
+      document.getElementById("wxFeels").innerHTML = `體感 ${Math.round(c.apparent_temperature)}°C`;
+      document.getElementById("wxHumidity").innerHTML = `濕度 ${Math.round(c.relative_humidity_2m)}%`;
+      document.getElementById("wxWind").innerHTML = `風速 ${Math.round(c.wind_speed_10m)} km/h`;
+      document.getElementById("wxNote").innerHTML = `✅ 即時更新・那霸當地時間`;
+    })
+    .catch(()=>{
+      document.getElementById("wxTemp").outerHTML = "–";
+      document.getElementById("wxNote").innerHTML = `⚠️ 目前無法取得即時天氣（需要網路連線）· <a href="https://www.google.com/search?q=那霸+天氣" target="_blank" style="color:var(--coral)">改查 Google</a>`;
+    });
+})();
+
+/* ============ CURRENCY (Frankfurter, no key) ============ */
+(function(){
+  let rate = null;
+  const jpyEl = document.getElementById("fxJpy");
+  const twdEl = document.getElementById("fxTwd");
+  const label = document.getElementById("fxRateLabel");
+  const note = document.getElementById("fxNote");
+  let direction = "jpy2twd"; // or twd2jpy
+
+  function recalc(){
+    if(rate===null) return;
+    if(direction==="jpy2twd"){
+      const v = parseFloat(jpyEl.value)||0;
+      twdEl.value = (v*rate).toFixed(1);
+    } else {
+      const v = parseFloat(twdEl.value)||0;
+      jpyEl.value = (v/rate).toFixed(0);
+    }
+  }
+
+  fetch("https://api.frankfurter.app/latest?from=JPY&to=TWD")
+    .then(r=>{ if(!r.ok) throw new Error("fx fetch failed"); return r.json(); })
+    .then(d=>{
+      rate = d.rates.TWD;
+      label.textContent = `1 JPY ≈ ${rate.toFixed(4)} TWD（更新日期 ${d.date}）`;
+      note.innerHTML = `✅ 即時匯率`;
+      recalc();
+    })
+    .catch(()=>{
+      label.textContent = "無法取得即時匯率";
+      note.innerHTML = `⚠️ 需要網路連線 · <a href="https://www.google.com/search?q=日圓+台幣+匯率" target="_blank" style="color:var(--coral)">改查 Google</a>`;
+    });
+
+  jpyEl.addEventListener("input", ()=>{ direction="jpy2twd"; twdEl.readOnly=true; jpyEl.readOnly=false; recalc(); });
+  twdEl.addEventListener("input", ()=>{ direction="twd2jpy"; jpyEl.readOnly=true; twdEl.readOnly=false; recalc(); });
+  document.getElementById("fxSwap").addEventListener("click", ()=>{
+    direction = direction==="jpy2twd" ? "twd2jpy" : "jpy2twd";
+    twdEl.readOnly = direction!=="twd2jpy";
+    jpyEl.readOnly = direction!=="jpy2twd";
+    recalc();
+  });
+})();
+
+/* ============ THEME TOGGLE ============ */
+(function(){
+  const stored = localStorage.getItem("theme");
+  const theme = stored || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  document.documentElement.setAttribute("data-theme", theme);
+  document.getElementById("themeBtn").addEventListener("click", ()=>{
+    const curr = document.documentElement.getAttribute("data-theme");
+    const next = curr === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  });
+})();
+
+/* ============ SCROLLSPY + REVEAL ============ */
+const sections = document.querySelectorAll("main section, header");
+const navA = document.querySelectorAll(".navlinks a");
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      en.target.querySelectorAll(".reveal").forEach(r=>r.classList.add("in"));
+      const id = en.target.id;
+      navA.forEach(a=>a.classList.toggle("active", a.getAttribute("href")==="#"+id));
+    }
+  });
+},{threshold:0.2});
+sections.forEach(s=>io.observe(s));
+document.querySelectorAll(".reveal").forEach((r,i)=>r.style.transitionDelay = (i%6*40)+"ms");
+</script>
+</body>
+</html>
